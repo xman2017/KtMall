@@ -27,6 +27,8 @@ open class BaserObserver<T>(var mView: BaseView): Observer<T> {
         mView.hideLoading()
         if (e is BaseException){
             mView.onError(e.msg)
+        }else if (e is DataNullException){
+            mView.onError("数据为空")
         }
     }
 

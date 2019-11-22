@@ -23,15 +23,14 @@ class RetrofitFactory private constructor() {
         val instance: RetrofitFactory by lazy { RetrofitFactory() }
     }
 
-    private val retrofit:Retrofit
-    private val interceptor :Interceptor
+    private val retrofit: Retrofit
+    private val interceptor: Interceptor
 
     init {
-        interceptor = Interceptor {
-            chain ->
-            var request = Request.Builder()
-                    .addHeader("charset","UTF-8")
-                    .addHeader("Content_Type","application/json")
+        interceptor = Interceptor { chain ->
+            var request = chain.request().newBuilder()
+                    .addHeader("charset", "UTF-8")
+                    .addHeader("Content_Type", "application/json")
                     .build()
             chain.proceed(request)
         }
@@ -49,8 +48,8 @@ class RetrofitFactory private constructor() {
      */
     private fun initOkHttpClint(): OkHttpClient {
         return OkHttpClient.Builder()
-                .readTimeout(10,TimeUnit.SECONDS)
-                .connectTimeout(10,TimeUnit.SECONDS)
+                .readTimeout(10, TimeUnit.SECONDS)
+                .connectTimeout(10, TimeUnit.SECONDS)
                 .addInterceptor(initLogInterceptor())
                 .addInterceptor(interceptor)
                 .build()
@@ -68,7 +67,7 @@ class RetrofitFactory private constructor() {
     /**
      * 创建retrofit对象
      */
-    fun <T> create(service:Class<T>):T{
+    fun <T> create(service: Class<T>): T {
         return retrofit.create(service)
     }
 }
