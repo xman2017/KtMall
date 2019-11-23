@@ -12,7 +12,7 @@ import com.kotlin.user.injection.module.UserModule
 import com.kotlin.user.presenter.RegisterPresenter
 import com.kotlin.user.presenter.view.RegisterView
 import kotlinx.android.synthetic.main.activity_register.*
-import org.jetbrains.anko.toast
+import org.jetbrains.anko.*
 
 class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, View.OnClickListener {
 
@@ -26,6 +26,7 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, Vie
     override fun onRegisterResult(succeed: Boolean) {
         if (succeed) {
             toast("注册成功！")
+            startActivity(intentFor<LoginActivity>().singleTop().clearTop())
         } else {
             toast("注册失败")
         }

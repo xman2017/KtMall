@@ -11,6 +11,9 @@ import com.kotlin.user.injection.module.UserModule
 import com.kotlin.user.presenter.ResetPwdPresenter
 import com.kotlin.user.presenter.view.ResetPwdView
 import kotlinx.android.synthetic.main.activity_reset_pwd.*
+import org.jetbrains.anko.clearTop
+import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.singleTop
 import org.jetbrains.anko.toast
 
 class ResetPwdActivity : BaseMvpActivity<ResetPwdPresenter>(), ResetPwdView, View.OnClickListener {
@@ -23,6 +26,7 @@ class ResetPwdActivity : BaseMvpActivity<ResetPwdPresenter>(), ResetPwdView, Vie
 
     override fun onResetPwdResult(result: String) {
         toast(result)
+        startActivity(intentFor<LoginActivity>().singleTop().clearTop())
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
