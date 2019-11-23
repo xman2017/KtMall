@@ -13,6 +13,7 @@ import com.kotlin.user.presenter.LoginPresenter
 import com.kotlin.user.presenter.view.LoginView
 import kotlinx.android.synthetic.main.activity_login.*
 import org.jetbrains.anko.intentFor
+import org.jetbrains.anko.startActivity
 import org.jetbrains.anko.toast
 
 class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClickListener {
@@ -25,7 +26,7 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
 
     override fun onLoginResult(result: UserInfo) {
         toast("登陆成功")
-
+        startActivity<UserInfoActivity>()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

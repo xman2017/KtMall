@@ -11,6 +11,6 @@ import com.kotlin.baselibrary.presenter.view.BaseView
  */
 interface UserInfoView:BaseView {
 
-    fun onResetPwdResult(result:String)
+    fun onUSerInfoUpdateResult(result:String)
 
 }
