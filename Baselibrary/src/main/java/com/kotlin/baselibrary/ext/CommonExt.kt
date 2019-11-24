@@ -6,7 +6,7 @@ import android.widget.EditText
 import com.kotlin.baselibrary.data.protocol.BaseResp
 import com.kotlin.baselibrary.rx.BaseFunc
 import com.kotlin.baselibrary.rx.BaseFuncBoolean
-import com.kotlin.baselibrary.rx.BaserObserver
+import com.kotlin.baselibrary.rx.BaseObserver
 import com.kotlin.baselibrary.widget.DefaultTextWatcher
 import com.trello.rxlifecycle2.LifecycleProvider
 import io.reactivex.Observable
@@ -21,7 +21,7 @@ import io.reactivex.schedulers.Schedulers
  *
  */
 
-fun <T> Observable<T>.execute(observer: BaserObserver<T>, lifecycleProvider: LifecycleProvider<*>) {
+fun <T> Observable<T>.execute(observer: BaseObserver<T>, lifecycleProvider: LifecycleProvider<*>) {
     this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .compose(lifecycleProvider.bindToLifecycle())

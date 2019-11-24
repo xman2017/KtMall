@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
-import android.os.PersistableBundle
 import android.util.Log
 import android.view.View
 import com.bigkoo.alertview.AlertView
@@ -13,27 +12,28 @@ import com.jph.takephoto.app.TakePhoto
 import com.jph.takephoto.app.TakePhotoImpl
 import com.jph.takephoto.compress.CompressConfig
 import com.jph.takephoto.model.InvokeParam
+import com.jph.takephoto.model.TContextWrap
 import com.jph.takephoto.model.TResult
 import com.jph.takephoto.permission.InvokeListener
+import com.jph.takephoto.permission.PermissionManager
+import com.jph.takephoto.permission.PermissionManager.TPermissionType
+import com.jph.takephoto.permission.TakePhotoInvocationHandler
 import com.kotlin.base.utils.DateUtils
-import com.kotlin.baselibrary.ext.enable
+import com.kotlin.base.utils.GlideUtils
+import com.kotlin.baselibrary.common.BaseConstants
 import com.kotlin.baselibrary.ext.onClick
 import com.kotlin.baselibrary.ui.activity.BaseMvpActivity
 import com.kotlin.user.R
 import com.kotlin.user.injection.component.DaggerUserComponent
 import com.kotlin.user.injection.module.UserModule
-import com.kotlin.user.presenter.ResetPwdPresenter
 import com.kotlin.user.presenter.UserInfoPresenter
-import com.kotlin.user.presenter.view.ResetPwdView
 import com.kotlin.user.presenter.view.UserInfoView
-import kotlinx.android.synthetic.main.activity_reset_pwd.*
+import com.qiniu.android.http.ResponseInfo
+import com.qiniu.android.storage.UpCompletionHandler
+import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_user_info.*
-import org.jetbrains.anko.toast
+import org.json.JSONObject
 import java.io.File
-import com.jph.takephoto.permission.PermissionManager
-import com.jph.takephoto.permission.PermissionManager.TPermissionType
-import com.jph.takephoto.model.TContextWrap
-import com.jph.takephoto.permission.TakePhotoInvocationHandler
 
 
 class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, View.OnClickListener, TakePhoto.TakeResultListener, InvokeListener {
@@ -41,9 +41,33 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
     lateinit var mTakePhoto: TakePhoto
     lateinit var mTempFile: File
     lateinit var invokeParam: InvokeParam
+    private var mSelectFilePath: String? = null
+    private var mRemotePath: String? = null
+    private val uploadManager: UploadManager by lazy { UploadManager() }
 
-    override fun onUSerInfoUpdateResult(result: String) {
+    override fun onGetUploadTokenResult(result: String) {
+        Log.e("xman","result == "+ result)
+//        uploadManager.put(mSelectFilePath,null,result,object :UpCompletionHandler{
+//            override fun complete(key: String?, info: ResponseInfo?, response: JSONObject?) {
+//                mRemotePath = BaseConstants.IMAGE_SERVER_ADDRESS + response?.get("hash")
+//                Log.e("xman", mRemotePath)
+//                runOnUiThread(Runnable {
+//                    GlideUtils.loadImage(this@UserInfoActivity, mRemotePath!!,mUserIconIv)
+//                })
+//            }
+//        },null)
 
+        uploadManager.put(mSelectFilePath,null,result,object:UpCompletionHandler{
+            override fun complete(key: String?, info: ResponseInfo?, response: JSONObject?) {
+                mRemotePath = BaseConstants.IMAGE_SERVER_ADDRESS + response?.get("hash")
+
+                Log.d("test", mRemotePath)
+                runOnUiThread(Runnable {
+                    GlideUtils.loadUrlImage(this@UserInfoActivity, mRemotePath!!,mUserIconIv)
+                })
+            }
+
+        },null)
     }
 
 
@@ -129,7 +153,9 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
 
     override fun takeSuccess(result: TResult?) {
         Log.e("xman", "takeSuccess,OriginPath == " + result!!.image.originalPath)
-        Log.e("xman", "takeSuccess,compressPath == " + result!!.image.originalPath)
+        Log.e("xman", "takeSuccess,compressPath == " + result!!.image.compressPath)
+        mSelectFilePath = result?.image?.compressPath
+        mBasePresenter.getUploadToken()
     }
 
 }

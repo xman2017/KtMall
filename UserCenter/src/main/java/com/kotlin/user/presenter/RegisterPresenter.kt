@@ -2,7 +2,7 @@ package com.kotlin.user.presenter
 
 import com.kotlin.baselibrary.ext.execute
 import com.kotlin.baselibrary.presenter.BasePresenter
-import com.kotlin.baselibrary.rx.BaserObserver
+import com.kotlin.baselibrary.rx.BaseObserver
 import com.kotlin.user.presenter.view.RegisterView
 import com.kotlin.user.service.UserService
 import javax.inject.Inject
@@ -25,7 +25,7 @@ class RegisterPresenter @Inject constructor(): BasePresenter<RegisterView>() {
         }
         mBaseView.showLoading("加载中")
         userService.register(mobile, pwd, verifyCode)
-                .execute(object : BaserObserver<Boolean>(mBaseView) {
+                .execute(object : BaseObserver<Boolean>(mBaseView) {
                     override fun onNext(t: Boolean) {
                         mBaseView.onRegisterResult(t)
                     }

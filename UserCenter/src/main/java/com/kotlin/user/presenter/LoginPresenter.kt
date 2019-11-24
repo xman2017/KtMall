@@ -2,10 +2,9 @@ package com.kotlin.user.presenter
 
 import com.kotlin.baselibrary.ext.execute
 import com.kotlin.baselibrary.presenter.BasePresenter
-import com.kotlin.baselibrary.rx.BaserObserver
+import com.kotlin.baselibrary.rx.BaseObserver
 import com.kotlin.user.data.protocol.UserInfo
 import com.kotlin.user.presenter.view.LoginView
-import com.kotlin.user.presenter.view.RegisterView
 import com.kotlin.user.service.UserService
 import javax.inject.Inject
 
@@ -27,7 +26,7 @@ class LoginPresenter @Inject constructor(): BasePresenter<LoginView>() {
         }
         mBaseView.showLoading("加载中")
         userService.login(mobile, pwd, verifyCode)
-                .execute(object : BaserObserver<UserInfo>(mBaseView) {
+                .execute(object : BaseObserver<UserInfo>(mBaseView) {
                     override fun onNext(t: UserInfo) {
                         mBaseView.onLoginResult(t)
                     }

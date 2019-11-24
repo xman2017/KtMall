@@ -11,6 +11,6 @@ import com.kotlin.baselibrary.presenter.view.BaseView
  */
 interface UserInfoView:BaseView {
 
-    fun onUSerInfoUpdateResult(result:String)
+    fun onGetUploadTokenResult(result:String)
 
 }

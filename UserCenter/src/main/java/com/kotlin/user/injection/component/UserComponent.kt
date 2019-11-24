@@ -2,6 +2,7 @@ package com.kotlin.user.injection.component
 
 import com.kotlin.baselibrary.injection.PerScope
 import com.kotlin.baselibrary.injection.component.ActivityComponent
+import com.kotlin.user.injection.module.UploadModule
 import com.kotlin.user.injection.module.UserModule
 import com.kotlin.user.ui.activity.*
 import dagger.Component
@@ -13,7 +14,7 @@ import dagger.Component
  * description:
  *
  */
-@Component(modules = [(UserModule::class)],dependencies = [(ActivityComponent::class)])
+@Component(modules = [(UserModule::class),(UploadModule::class)],dependencies = [(ActivityComponent::class)])
 @PerScope
 interface UserComponent {
 

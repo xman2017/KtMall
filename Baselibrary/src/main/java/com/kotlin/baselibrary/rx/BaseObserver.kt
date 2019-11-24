@@ -12,7 +12,7 @@ import io.reactivex.disposables.Disposable
  * description:
  *
  */
-open class BaserObserver<T>(var mView: BaseView): Observer<T> {
+open class BaseObserver<T>(var mView: BaseView): Observer<T> {
     override fun onComplete() {
         mView.hideLoading()
     }
