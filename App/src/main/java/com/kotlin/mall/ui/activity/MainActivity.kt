@@ -1,15 +1,18 @@
 package com.kotlin.mall.ui.activity
 
-import android.support.v7.app.AppCompatActivity
-import android.os.Bundle
+import com.kotlin.baselibrary.ui.activity.BaseActivity
 import com.kotlin.mall.R
+import com.kotlin.mall.ui.fragment.HomeFragment
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : BaseActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+    override fun getLayoutId(): Int {
+        return R.layout.activity_main
+    }
 
-
+    override fun initView() {
+        var transaction = supportFragmentManager.beginTransaction()
+        transaction.replace(R.id.flContainer, HomeFragment())
+        transaction.commit()
     }
 }

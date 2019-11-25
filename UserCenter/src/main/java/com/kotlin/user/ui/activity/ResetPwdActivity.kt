@@ -29,15 +29,17 @@ class ResetPwdActivity : BaseMvpActivity<ResetPwdPresenter>(), ResetPwdView, Vie
         startActivity(intentFor<LoginActivity>().singleTop().clearTop())
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_reset_pwd)
+    override fun getLayoutId(): Int {
+        return R.layout.activity_reset_pwd
+    }
+
+    override fun initView() {
+        super.initView()
 
         mConfirmBtn.onClick(this)
         mConfirmBtn.enable(mPwdEt) { isBtnEnable() }
         mConfirmBtn.enable(mPwdConfirmEt) { isBtnEnable() }
     }
-
     override fun onClick(v: View) {
         when (v.id) {
             R.id.mConfirmBtn -> {

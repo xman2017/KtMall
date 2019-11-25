@@ -31,9 +31,12 @@ class LoginActivity : BaseMvpActivity<LoginPresenter>(), LoginView, View.OnClick
         startActivity<UserInfoActivity>()
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+    override fun getLayoutId(): Int {
+        return R.layout.activity_login
+    }
+
+    override fun initView() {
+        super.initView()
 
         mLoginBtn.onClick(this)
         mForgetPwdTv.onClick(this)

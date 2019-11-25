@@ -19,7 +19,7 @@ class UserRepository @Inject constructor(){
     /**
      * 注册  实际请求数据的部分
      */
-    fun register(mobile:String,verifyCode:String,pwd:String): Observable<BaseResp<String>> {
+    fun register(mobile:String,pwd:String,verifyCode:String): Observable<BaseResp<String>> {
         return RetrofitFactory.instance.create(UserApi::class.java).register(RegisterReq(mobile,pwd,verifyCode))
     }
 

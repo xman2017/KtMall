@@ -32,9 +32,12 @@ class RegisterActivity : BaseMvpActivity<RegisterPresenter>(), RegisterView, Vie
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_register)
+    override fun getLayoutId(): Int {
+        return R.layout.activity_register
+    }
+
+    override fun initView() {
+        super.initView()
 
         mRegisterBtn.onClick(this)
         mVerifyCodeBtn.onClick(this)

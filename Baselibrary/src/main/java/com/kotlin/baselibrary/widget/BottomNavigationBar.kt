@@ -66,7 +66,7 @@ class BottomNavigationBar @JvmOverloads constructor(
                 .initialise()
     }
 
-    fun showCartBadge(count:Int){
+    fun checkCartBadge(count:Int){
         if(count == 0){
             cartBadgeItem.hide()
         }else{
@@ -75,7 +75,7 @@ class BottomNavigationBar @JvmOverloads constructor(
         }
     }
 
-    fun showMsgBadge(showBadge:Boolean){
+    fun checkMsgBadge(showBadge:Boolean){
         if (showBadge){
             msgBadgeItem.show()
         }else{

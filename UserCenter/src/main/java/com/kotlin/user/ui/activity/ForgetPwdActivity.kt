@@ -27,9 +27,12 @@ class ForgetPwdActivity : BaseMvpActivity<ForgetPwdPresenter>(), ForgetPwdView, 
         startActivity(intentFor<ResetPwdActivity>("mobile" to mMobileEt.text.toString()))
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_forget_pwd)
+    override fun getLayoutId(): Int {
+        return R.layout.activity_forget_pwd
+    }
+
+    override fun initView() {
+        super.initView()
 
         mVerifyCodeBtn.onClick(this)
         mNextBtn.onClick(this)

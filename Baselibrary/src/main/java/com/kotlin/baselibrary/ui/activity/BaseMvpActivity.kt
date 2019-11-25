@@ -21,6 +21,31 @@ import javax.inject.Inject
  */
 abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView {
 
+    @Inject
+    lateinit var mBasePresenter: T
+
+    @Inject
+    lateinit var activityComponent: ActivityComponent
+
+    lateinit var mLoadingDialog: LoadingDialog
+
+    override fun initMvpComponent() {
+        super.initMvpComponent()
+        initActivityComponent()
+        injectComponent()
+        mLoadingDialog = LoadingDialog.create(this)
+    }
+
+    abstract fun injectComponent()
+
+    private fun initActivityComponent() {
+        activityComponent = DaggerActivityComponent.builder()
+                .appComponent((application as BaseApplication).appComponent)
+                .activityModule(ActivityModule(this))
+                .lifecycleProviderModule(LifecycleProviderModule(this))
+                .build()
+    }
+
     override fun showLoading(loadMsg: String) {
         if (mLoadingDialog != null) {
             mLoadingDialog.setMessage(loadMsg)
@@ -35,30 +60,5 @@ abstract class BaseMvpActivity<T : BasePresenter<*>> : BaseActivity(), BaseView 
 
     override fun onError(errMsg: String) {
         toast(errMsg)
-    }
-
-    @Inject
-    lateinit var mBasePresenter: T
-
-    @Inject
-    lateinit var activityComponent: ActivityComponent
-
-    lateinit var mLoadingDialog: LoadingDialog
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        initActivityComponent()
-        injectComponent()
-        mLoadingDialog = LoadingDialog.create(this)
-    }
-
-    abstract fun injectComponent()
-
-    private fun initActivityComponent() {
-        activityComponent = DaggerActivityComponent.builder()
-                .appComponent((application as BaseApplication).appComponent)
-                .activityModule(ActivityModule(this))
-                .lifecycleProviderModule(LifecycleProviderModule(this))
-                .build()
     }
 }

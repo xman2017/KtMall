@@ -11,8 +11,10 @@ import com.kotlin.baselibrary.injection.module.ActivityModule
 import com.kotlin.baselibrary.injection.module.LifecycleProviderModule
 import com.kotlin.baselibrary.presenter.BasePresenter
 import com.kotlin.baselibrary.presenter.view.BaseView
+import com.kotlin.baselibrary.widget.LoadingDialog
 import org.jetbrains.anko.support.v4.act
 import org.jetbrains.anko.support.v4.toast
+import org.jetbrains.anko.toast
 import javax.inject.Inject
 
 /**
@@ -23,28 +25,21 @@ import javax.inject.Inject
  *
  */
 abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView {
-    override fun showLoading(loadMsg: String) {
-    }
-
-    override fun hideLoading() {
-    }
-
-    override fun onError(errMsg: String) {
-        toast(errMsg)
-    }
 
     @Inject
     lateinit var mBasePresenter: T
 
     @Inject
-    lateinit var activityComponent:ActivityComponent
+    lateinit var activityComponent: ActivityComponent
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    lateinit var mLoadingDialog: LoadingDialog
 
+
+    override fun initMvpComponent() {
         initActivityComponent()
         injectComponent()
+        mLoadingDialog = LoadingDialog.create(act)
 
-        return super.onCreateView(inflater, container, savedInstanceState)
     }
 
     abstract fun injectComponent()
@@ -56,4 +51,22 @@ abstract class BaseMvpFragment<T : BasePresenter<*>> : BaseFragment(), BaseView 
                 .lifecycleProviderModule(LifecycleProviderModule(this))
                 .build()
     }
+
+
+    override fun showLoading(loadMsg: String) {
+        if (mLoadingDialog != null) {
+            mLoadingDialog.setMessage(loadMsg)
+            mLoadingDialog.showLoading()
+        }
+    }
+
+    override fun hideLoading() {
+        if (mLoadingDialog != null)
+            mLoadingDialog.hideLoading()
+    }
+
+    override fun onError(errMsg: String) {
+        toast(errMsg)
+    }
+
 }

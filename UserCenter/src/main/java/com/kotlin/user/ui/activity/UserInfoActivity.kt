@@ -32,10 +32,7 @@ import com.kotlin.user.injection.module.UserModule
 import com.kotlin.user.presenter.UserInfoPresenter
 import com.kotlin.user.presenter.view.UserInfoView
 import com.kotlin.user.utils.UserPrefsUtils
-import com.qiniu.android.common.FixedZone
-import com.qiniu.android.common.Zone
 import com.qiniu.android.http.ResponseInfo
-import com.qiniu.android.storage.Configuration
 import com.qiniu.android.storage.UpCompletionHandler
 import com.qiniu.android.storage.UploadManager
 import kotlinx.android.synthetic.main.activity_user_info.*
@@ -44,7 +41,7 @@ import org.json.JSONObject
 import java.io.File
 
 
-class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, View.OnClickListener, TakePhoto.TakeResultListener, InvokeListener {
+class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, TakePhoto.TakeResultListener, InvokeListener {
 
     lateinit var mTakePhoto: TakePhoto
     lateinit var mTempFile: File
@@ -60,22 +57,33 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
 
     private val uploadManager: UploadManager by lazy { UploadManager() }
 
+    override fun getLayoutId(): Int {
+        return R.layout.activity_user_info
+    }
+
     override fun injectComponent() {
         DaggerUserComponent.builder().activityComponent(activityComponent).userModule(UserModule()).build().inject(this)
         mBasePresenter.mBaseView = this
     }
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_user_info)
+    override fun initBundle(savedInstanceState: Bundle?) {
+        super.initBundle(savedInstanceState)
         mTakePhoto = TakePhotoInvocationHandler.of(this).bind(TakePhotoImpl(this, this)) as TakePhoto
         mTakePhoto.onCreate(savedInstanceState)
-        initViews()
-        initData()
     }
 
-    private fun initData() {
+    override fun initView() {
+        mUserIconIv.onClick { showAlertView() }
+        mHeaderBar.getRightView().onClick {
+            mBasePresenter.eidtUser(mUserIcon ?: "",
+                    mUserNameEt.text.toString() ,
+                    if (mGenderMaleRb.isChecked) "0" else "1",
+                    mUserSignEt.text.toString())
+        }
+    }
+
+
+    override fun initData() {
         mUserIcon = AppPrefsUtils.getString(ProviderConstants.KEY_SP_USER_ICON)
         mUserName = AppPrefsUtils.getString(ProviderConstants.KEY_SP_USER_NAME)
         mGender = AppPrefsUtils.getString(ProviderConstants.KEY_SP_USER_GENDER)
@@ -118,15 +126,6 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
         return type
     }
 
-    private fun initViews() {
-        mUserIconIv.onClick { showAlertView() }
-        mHeaderBar.getRightView().onClick {
-            mBasePresenter.eidtUser(mUserIcon ?: "",
-                    mUserNameEt.text.toString() ,
-                    if (mGenderMaleRb.isChecked) "0" else "1",
-                    mUserSignEt.text.toString())
-        }
-    }
 
     private fun showAlertView() {
         AlertView("选择头像", "", "取消", null, arrayOf("拍照", "相册"), this,
@@ -154,9 +153,6 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Vie
         mTempFile = File(cacheDir, tempFileName)
     }
 
-    override fun onClick(v: View) {
-
-    }
 
     override fun takeCancel() {
     }
