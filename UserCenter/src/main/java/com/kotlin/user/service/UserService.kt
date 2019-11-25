@@ -20,4 +20,7 @@ interface UserService {
     fun forgetPwd(mobile: String, verifyCode: String): Observable<Boolean>
 
     fun resetPwd(mobile: String, pwd: String): Observable<Boolean>
+
+    fun editUser(userIcon: String, userName: String, gender: String,sign:String): Observable<UserInfo>
+
 }

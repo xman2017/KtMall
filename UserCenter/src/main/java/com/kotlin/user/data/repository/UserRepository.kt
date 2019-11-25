@@ -23,7 +23,6 @@ class UserRepository @Inject constructor(){
         return RetrofitFactory.instance.create(UserApi::class.java).register(RegisterReq(mobile,pwd,verifyCode))
     }
 
-
     /**
      * 登陆  实际请求数据的部分
      */
@@ -37,10 +36,18 @@ class UserRepository @Inject constructor(){
     fun forgetPwd(mobile:String,verifyCode:String): Observable<BaseResp<String>> {
         return RetrofitFactory.instance.create(UserApi::class.java).forgetPwd(ForgetPwdReq(mobile,verifyCode))
     }
+
     /**
      * 重置密码  实际请求数据的部分
      */
     fun resetPwd(mobile:String,pwd:String): Observable<BaseResp<String>> {
         return RetrofitFactory.instance.create(UserApi::class.java).resetPwd(ResetPwdReq(mobile,pwd))
+    }
+
+    /**
+     * 编辑用户信息
+     */
+    fun editUser(userIcon: String, userName: String, gender: String, sign: String): Observable<BaseResp<UserInfo>> {
+        return RetrofitFactory.instance.create(UserApi::class.java).editUser(EditUserReq(userIcon,userName,gender,sign))
     }
 }

@@ -16,7 +16,6 @@ import javax.inject.Inject
  *
  */
 class UserServiceImpl @Inject constructor():UserService {
-
     @Inject
     lateinit var userRepository:UserRepository
 
@@ -35,4 +34,9 @@ class UserServiceImpl @Inject constructor():UserService {
     override fun resetPwd(mobile: String, pwd: String): Observable<Boolean> {
         return userRepository.resetPwd(mobile,pwd).convertBoolean()
     }
+
+    override fun editUser(userIcon: String, userName: String, gender: String, sign: String): Observable<UserInfo> {
+        return userRepository.editUser(userIcon,userName,gender,sign).convert()
+    }
+
 }

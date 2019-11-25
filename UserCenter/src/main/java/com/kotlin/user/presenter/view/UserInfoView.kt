@@ -1,6 +1,7 @@
 package com.kotlin.user.presenter.view
 
 import com.kotlin.baselibrary.presenter.view.BaseView
+import com.kotlin.user.data.protocol.UserInfo
 
 /**
  *
@@ -12,5 +13,7 @@ import com.kotlin.baselibrary.presenter.view.BaseView
 interface UserInfoView:BaseView {
 
     fun onGetUploadTokenResult(result:String)
+
+    fun onEditUserResult(userInfo: UserInfo)
 
 }
