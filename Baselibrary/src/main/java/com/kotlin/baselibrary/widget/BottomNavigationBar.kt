@@ -46,6 +46,7 @@ class BottomNavigationBar @JvmOverloads constructor(
                 .setActiveColor(R.color.common_blue)
                 .setInActiveColor(R.color.text_normal)
         msgBadgeItem = ShapeBadgeItem()
+        msgBadgeItem.setShape(ShapeBadgeItem.SHAPE_OVAL)
         msgItem.setBadgeItem(msgBadgeItem)
 
         var mineItem = BottomNavigationItem(R.drawable.btn_nav_user_press, R.string.nav_bar_user)

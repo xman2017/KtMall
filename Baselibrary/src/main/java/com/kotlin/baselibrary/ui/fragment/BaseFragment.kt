@@ -28,21 +28,18 @@ open class BaseFragment : RxFragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-
-        if (mRoot != null) {
-            val parent = mRoot?.getParent() as ViewGroup
-            parent?.removeView(mRoot)
-        } else {
-            mRoot = inflater.inflate(getLayoutId(), container, false)
-            // Do something
-            onBindViewBefore(mRoot)
-            // Get savedInstanceState
-            onRestartInstance(savedInstanceState)
-            // Init
-            initWidget(mRoot)
-            initData()
-        }
+        mRoot =  inflater.inflate(getLayoutId(), container, false)
         return mRoot
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        onBindViewBefore(mRoot)
+        // Get savedInstanceState
+        onRestartInstance(savedInstanceState)
+        // Init
+        initWidget(mRoot)
+        initData()
     }
 
     open fun initBundle(bundle: Bundle) {

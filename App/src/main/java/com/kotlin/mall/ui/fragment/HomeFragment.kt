@@ -13,6 +13,7 @@ import com.kotlin.mall.common.HOME_BANNER_TWO
 import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
+import kotlinx.android.synthetic.main.fragment_home.*
 
 /**
  *
@@ -23,7 +24,6 @@ import com.youth.banner.Transformer
  */
 class HomeFragment:BaseFragment() {
 
-    lateinit var mBanner:Banner
 
     override fun getLayoutId(): Int {
         return R.layout.fragment_home
@@ -32,22 +32,27 @@ class HomeFragment:BaseFragment() {
     override fun initWidget(mRoot: View?) {
         super.initWidget(mRoot)
         mRoot?.let { initBanner(it) }
+        initNews()
+    }
+
+    private fun initNews() {
+        //公告
+        mNewsFlipperView.setData(arrayOf("夏日炎炎，第一波福利还有30秒到达战场", "新用户立领1000元优惠券"))
     }
 
     private fun initBanner(rootView: View) {
-        mBanner = rootView.findViewById(R.id.mHomeBanner)
         //设置图片加载器
-        mBanner.setImageLoader(BannerImagerLoader())
+        mHomeBanner.setImageLoader(BannerImagerLoader())
         //设置图片集合
-        mBanner.setImages(listOf(HOME_BANNER_ONE, HOME_BANNER_TWO, HOME_BANNER_THREE))
+        mHomeBanner.setImages(listOf(HOME_BANNER_ONE, HOME_BANNER_TWO, HOME_BANNER_THREE))
         //设置banner动画效果
-        mBanner.setBannerAnimation(Transformer.DepthPage)
+        mHomeBanner.setBannerAnimation(Transformer.DepthPage)
         //设置自动轮播，默认为true
-        mBanner.isAutoPlay(true)
+        mHomeBanner.isAutoPlay(true)
         //设置指示器位置（当banner模式中有指示器时）
-        mBanner.setIndicatorGravity(BannerConfig.CENTER);
+        mHomeBanner.setIndicatorGravity(BannerConfig.CENTER);
         //banner设置方法全部调用完毕时最后调用
-        mBanner.start()
+        mHomeBanner.start()
     }
 
 

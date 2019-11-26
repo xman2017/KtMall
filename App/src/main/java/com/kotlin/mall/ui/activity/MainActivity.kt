@@ -15,4 +15,5 @@ class MainActivity : BaseActivity() {
         transaction.replace(R.id.flContainer, HomeFragment())
         transaction.commit()
     }
+
 }
