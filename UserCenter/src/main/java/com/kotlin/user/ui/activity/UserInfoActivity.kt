@@ -22,6 +22,7 @@ import com.kotlin.base.utils.GlideUtils
 import com.kotlin.baselibrary.common.BaseConstants
 import com.kotlin.baselibrary.ext.onClick
 import com.kotlin.baselibrary.ui.activity.BaseMvpActivity
+import com.kotlin.baselibrary.utils.MmkvUtils
 import com.kotlin.provider.common.ProviderConstants
 import com.kotlin.user.R
 import com.kotlin.user.data.protocol.UserInfo
@@ -82,11 +83,11 @@ class UserInfoActivity : BaseMvpActivity<UserInfoPresenter>(), UserInfoView, Tak
 
 
     override fun initData() {
-        mUserIcon = AppPrefsUtils.getString(ProviderConstants.KEY_SP_USER_ICON)
-        mUserName = AppPrefsUtils.getString(ProviderConstants.KEY_SP_USER_NAME)
-        mGender = AppPrefsUtils.getString(ProviderConstants.KEY_SP_USER_GENDER)
-        mUserMobile = AppPrefsUtils.getString(ProviderConstants.KEY_SP_USER_MOBILE)
-        mSign = AppPrefsUtils.getString(ProviderConstants.KEY_SP_USER_SIGN)
+        mUserIcon = MmkvUtils.getString(ProviderConstants.KEY_SP_USER_ICON)
+        mUserName = MmkvUtils.getString(ProviderConstants.KEY_SP_USER_NAME)
+        mGender = MmkvUtils.getString(ProviderConstants.KEY_SP_USER_GENDER)
+        mUserMobile = MmkvUtils.getString(ProviderConstants.KEY_SP_USER_MOBILE)
+        mSign = MmkvUtils.getString(ProviderConstants.KEY_SP_USER_SIGN)
 
         if (mUserIcon != "") GlideUtils.loadImage(this, mUserIcon!!, mUserIconIv)
         mUserNameEt.setText(mUserName)

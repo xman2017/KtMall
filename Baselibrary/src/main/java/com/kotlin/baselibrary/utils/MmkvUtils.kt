@@ -10,9 +10,9 @@ import com.tencent.mmkv.MMKV
  * @Description:    tencent kv component
  *
  */
-object MmkvUtils{
+object MmkvUtils {
 
-    val instance = MMKV.mmkvWithID(BaseConstants.MMKV_ID)
+    val instance: MMKV = MMKV.defaultMMKV()
 
     /*
        Boolean数据
@@ -38,9 +38,17 @@ object MmkvUtils{
     /*
         默认 ""
      */
-    open fun getString(key: String): String {
-        return instance.decodeString(key)
+    fun getString(key: String): String {
+        return getString(key, "")
     }
+
+    /*
+        默认 ""
+     */
+    fun getString(key: String, defValue: String): String {
+        return instance.decodeString(key, defValue)
+    }
+
 
     /*
         Int数据

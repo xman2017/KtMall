@@ -31,7 +31,7 @@ class RetrofitFactory private constructor() {
             var request = chain.request().newBuilder()
                     .addHeader("charset", "UTF-8")
                     .addHeader("Content_Type", "application/json")
-                    .addHeader("token", MmkvUtils.getString("token"))
+                    .addHeader("token", MmkvUtils.getString(BaseConstants.KEY_SP_TOKEN))
                     .build()
             chain.proceed(request)
         }
