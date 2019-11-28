@@ -5,7 +5,6 @@ import android.net.Uri
 import android.os.Bundle
 import android.os.Environment
 import android.util.Log
-import android.view.View
 import com.bigkoo.alertview.AlertView
 import com.bigkoo.alertview.OnItemClickListener
 import com.jph.takephoto.app.TakePhoto
@@ -18,7 +17,6 @@ import com.jph.takephoto.permission.InvokeListener
 import com.jph.takephoto.permission.PermissionManager
 import com.jph.takephoto.permission.PermissionManager.TPermissionType
 import com.jph.takephoto.permission.TakePhotoInvocationHandler
-import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.base.utils.DateUtils
 import com.kotlin.base.utils.GlideUtils
 import com.kotlin.baselibrary.common.BaseConstants

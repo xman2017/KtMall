@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
 
 android {
     compileSdkVersion compile_sdk_version
@@ -108,9 +109,12 @@ dependencies {
     //BadgeView
     api 'q.rorbin:badgeview:1.1.2'
 
+    api 'com.tencent:mmkv:1.0.23'
+
+
 }
 repositories {
     mavenCentral()
 }
 
-apply plugin: 'kotlin-android-extensions'
+

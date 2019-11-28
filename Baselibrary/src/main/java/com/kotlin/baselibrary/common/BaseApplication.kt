@@ -2,9 +2,11 @@ package com.kotlin.baselibrary.common
 
 import android.app.Application
 import android.content.Context
+import android.util.Log
 import com.kotlin.baselibrary.injection.component.AppComponent
 import com.kotlin.baselibrary.injection.component.DaggerAppComponent
 import com.kotlin.baselibrary.injection.module.AppModule
+import com.tencent.mmkv.MMKV
 import javax.inject.Inject
 
 /**
@@ -14,15 +16,16 @@ import javax.inject.Inject
  * description:
  *
  */
-class BaseApplication:Application() {
+class BaseApplication : Application() {
 
     @Inject
-    lateinit var appComponent:AppComponent
+    lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
         initAppInjection()
         context = this
+        MMKV.initialize(this)
     }
 
     private fun initAppInjection() {
@@ -31,7 +34,7 @@ class BaseApplication:Application() {
 
 
     companion object {
-        lateinit var context:Context
+        lateinit var context: Context
     }
 
 }

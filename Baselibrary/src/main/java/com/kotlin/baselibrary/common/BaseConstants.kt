@@ -10,9 +10,10 @@ package com.kotlin.baselibrary.common
 class BaseConstants {
     companion object {
         //        val SERVER_ADDRESS = "http://139.159.161.40:8080/Kotlin_Server/"
-        const val SERVER_ADDRESS = "http://192.168.0.101:8080/Kotlin_war_exploded/"
-//        const val SERVER_ADDRESS = "http://10.43.23.64:8080/Kotlin_war_exploded/"
+//        const val SERVER_ADDRESS = "http://192.168.0.101:8080/Kotlin_war_exploded/"
+        const val SERVER_ADDRESS = "http://10.43.23.64:8080/Kotlin_war_exploded/"
         const val TABLE_PREFS = "Kotlin_Mall"
+        const val MMKV_ID = "Kotlin_MMKV_ID"
 
         //七牛服务地址
         const val IMAGE_SERVER_ADDRESS = "http://osea2fxp7.bkt.clouddn.com/"

@@ -1,16 +1,12 @@
 package com.kotlin.mall.ui.fragment
 
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.kotlin.baselibrary.ui.fragment.BaseFragment
 import com.kotlin.baselibrary.widget.BannerImagerLoader
 import com.kotlin.mall.R
 import com.kotlin.mall.common.HOME_BANNER_ONE
 import com.kotlin.mall.common.HOME_BANNER_THREE
 import com.kotlin.mall.common.HOME_BANNER_TWO
-import com.youth.banner.Banner
 import com.youth.banner.BannerConfig
 import com.youth.banner.Transformer
 import kotlinx.android.synthetic.main.fragment_home.*

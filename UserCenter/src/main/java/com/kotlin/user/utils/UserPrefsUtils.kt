@@ -1,6 +1,5 @@
 package com.kotlin.user.utils
 
-import com.kotlin.base.utils.AppPrefsUtils
 import com.kotlin.baselibrary.common.BaseConstants
 import com.kotlin.provider.common.ProviderConstants
 import com.kotlin.user.data.protocol.UserInfo
