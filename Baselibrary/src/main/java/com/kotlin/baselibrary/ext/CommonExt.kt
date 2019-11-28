@@ -3,6 +3,8 @@ package com.kotlin.baselibrary.ext
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
+import com.kotlin.base.utils.GlideUtils
 import com.kotlin.baselibrary.data.protocol.BaseResp
 import com.kotlin.baselibrary.rx.BaseFunc
 import com.kotlin.baselibrary.rx.BaseFuncBoolean
@@ -52,4 +54,8 @@ fun Button.enable(et: EditText, method: () -> Boolean) {
             btn.isEnabled = method()
         }
     })
+}
+
+fun ImageView.loadUrl(url:String){
+    GlideUtils.loadUrlImage(context,url,this)
 }
